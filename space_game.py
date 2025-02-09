@@ -3,15 +3,15 @@ import time
 
 import pygame
 
-L = 700
-H = 500
+lenght = 700
+height = 500
 
 pygame.font.init()
 
 class Game:
 
     def __init__(self):
-        self.display = pygame.display.set_mode((L, H))
+        self.display = pygame.display.set_mode((lenght, height))
         self.running = True
         self.bg = pygame.image.load("image.jpg")
         self.player = pygame.image.load("rocket.png")
@@ -23,12 +23,12 @@ class Game:
         self.one = True
         self.two = True
         self.three = True
-        self.x = L/2
+        self.x = lenght / 2
         self.fps = pygame.time.Clock()
         self.gun_y = 400
         self.gun_detect = False
         self.gun_x = -10
-        self.target_x = random.randrange(1,H, 5)
+        self.target_x = random.randrange(1, height, 5)
         self.target_y = 0
         self.score = 0
         self.boom_cooldown = 500
@@ -71,7 +71,7 @@ class Game:
                     print(self.score)
                     self.running = False
 
-            self.bg = pygame.transform.scale(self.bg, (L,H))
+            self.bg = pygame.transform.scale(self.bg, (lenght, height))
             self.display.blit(self.bg, (0, 0))
             self.heart = pygame.transform.scale(self.heart, (50, 50))
             if self.one:
@@ -106,12 +106,12 @@ class Game:
 
             if target.colliderect(gun):
                 self.score += 10
-                self.target_x = random.randrange(1,H, 5)
+                self.target_x = random.randrange(1, height, 5)
 
             if self.target_y == 670:
                 self.score -= 30
                 self.lives_detect()
-                self.target_x = random.randrange(1, H, 5)
+                self.target_x = random.randrange(1, height, 5)
 
             if self.gun_y == 0:
                 self.gun_detect = False
@@ -120,7 +120,7 @@ class Game:
             player = self.display.blit(self.player, (self.x-25, 400))
             if player.colliderect(target):
                 self.score -= 30
-                self.target_x = random.randrange(1,H, 5)
+                self.target_x = random.randrange(1, height, 5)
                 self.target_y = 0
                 animation = True
                 self.lives_detect()
